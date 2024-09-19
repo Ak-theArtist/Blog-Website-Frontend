@@ -1,0 +1,420 @@
+.nav-register-btn {
+  margin-right: 8px;
+}
+
+.logo-main img {
+  height: 50px;
+  width: auto;
+  object-fit: fill;
+  fill-opacity: 1;
+  object-position: center center;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.mynavbar-color {
+  background-color: rgba(230, 38, 102, 0.933) !important;
+}
+
+.mynavbar-color2 {
+  background-color: rgba(95, 10, 38, 0.933) !important;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-weight: bolder;
+}
+.navbar > .container{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.link,
+.nav-logout {
+  color: white;
+}
+
+.navbar-brand:hover {
+  color: whitesmoke;
+}
+
+.nav-item a {
+  color: white !important;
+  text-decoration: none;
+}
+
+.footer {
+  padding: 5px;
+  background-color: rgba(221, 218, 219, 0.852);
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.alert-success.fade {
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+.register-box {
+  background-color: rgba(235, 110, 152, 0.859);
+  padding: 25px;
+  width: auto;
+  height: auto;
+  color: white;
+}
+.hyper-links{
+  color: rgb(178, 6, 64)
+}
+.hyper-links:hover{
+  color:  rgb(91, 5, 34);
+  text-decoration: underline;
+}
+.register-container {
+  padding: 20px;
+  background-image: url(assets/images/m3.jpeg);
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  height: 80vh;
+  min-height: 200px;
+}
+
+.register-btn {
+  margin-top: 30px;
+}
+
+.login-box {
+  background-color: rgba(235, 79, 131, 0.859);
+  padding: 25px;
+  width: auto;
+  height: auto;
+  color: white;
+}
+
+.login-container {
+  padding: 20px;
+  background-image: url(assets/images/m1.jpeg);
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  min-height: 500px;
+  height: 80vh;
+}
+
+.login-btn {
+  margin-top: 30px;
+}
+
+.button-view {
+  text-align: center;
+}
+
+.button-view a {
+  color: white;
+  text-decoration: none;
+}
+
+.button-view a:hover {
+  color: rgb(46, 13, 232);
+  text-decoration: underline;
+}
+
+.post_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../src/assets/images/home.jpeg);
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+}
+
+form {
+  display: flex !important;
+  justify-content: flex-end;
+  flex-direction: column !important;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: whitesmoke;
+}
+.post-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+.post-form-container{
+  display: flex !important;
+  justify-content: flex-end;
+  flex-direction: column !important;
+  border-radius: 20px;
+  padding: 100px 0 100px 0;
+  text-align: center;
+}
+.post-form-container form{
+  color: rgba(187, 22, 77, 0.856);
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.create-post-btn{
+  background-color: rgb(226, 43, 104);
+  font-size: large;
+  font-weight: bold;
+  color: whitesmoke;
+}
+.create-post-btn:hover{
+  background-color: rgba(183, 15, 71, 0.978);
+  color: white;
+}
+h2 {
+  color: white;
+  font-weight: bolder;
+}
+
+.modal-content {
+  border-radius: 10px;
+  background-color: rgba(235, 110, 152, 0.859);
+}
+.modal-header{
+  justify-content: center;
+}
+
+
+/* Extra CSS */
+
+.home-main {
+  height: auto;
+  width: auto;
+  background-image: url(assets/images/home.jpeg);
+  height: 80vh;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+  overflow-y: auto;
+}
+
+.home-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+form{
+  padding: 0px !important;
+}
+
+.modal-body{
+  margin: 0 10px;
+}
+.modal-footer{
+  justify-content: center;
+}
+
+.post-view {
+  display: flex;
+  margin: 10px;
+  width: 200px;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+  color: whitesmoke;
+  border: 5px solid rgb(149, 145, 145);
+  border-radius: 15px;
+  background-color: rgba(232, 89, 136, 0.859);
+  backdrop-filter: blur(50px);
+  text-decoration: none;
+  align-items: center;
+
+}
+.posttext-view{
+  padding: 8px;
+  height: 100px;
+  text-align: center;
+}
+.post-view:hover{
+  background-color: rgba(187, 22, 77, 0.856);
+}
+
+.post-view img{
+  overflow: hidden;
+  height: 18vh;
+  transform: scale(1);
+  width: 100%;
+  object-fit: cover;
+
+}
+.post-view img:hover{
+  transform: scale(1.05);
+  transition: all 0.01s ease linear;
+}
+
+/* __________________________________________________________________________________ */
+.postview_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  flex-wrap: wrap;
+  background-image: url(assets/images/home.jpeg);
+  height: 80vh;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+}
+
+.postview {
+  display: flex;
+  margin: 10px;
+  cursor: pointer;
+  gap: 10px;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+  color: whitesmoke;
+  border: 5px solid rgb(149, 145, 145);
+  border-radius: 15px;
+  background-color: rgba(232, 89, 136, 0.859);
+  backdrop-filter: blur(50px);
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 0px 12px 0px;
+
+}
+
+.postview:hover {
+  background-color: rgba(187, 22, 77, 0.856);
+}
+
+.postview img {
+  overflow: hidden;
+  height: 50vh;
+  transform: scale(1);
+}
+
+.postview img:hover {
+  transform: scale(1.05);
+  transition: all 0.01s ease linear;
+}
+
+/* CSS for MyPost component */
+.mypost-container {
+  background-image: url(assets/images/home.jpeg);
+  padding: 20px;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: auto;
+  height: 80vh;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+  overflow-y: auto;
+}
+
+.myposts-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.mypost-item {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+  color: whitesmoke;
+  cursor: pointer;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.mypost-item img {
+  align-items: center;
+}
+
+.mypost-item:hover img {
+  transform: scale(1.05);
+  transition: all 0.01s ease linear;
+}
+
+.checkbox-style {
+  font-size: 14px;
+}
+
+/* Admin Styles */
+.admin-box {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 20px 20px 250px;
+  flex-wrap: wrap;
+  background-image: url(assets/images/m2.jpeg);
+  height: 80vh;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+}
+.admin-box h2{
+  color: rgb(219, 30, 93);
+}
+.admin-table {
+  padding: 5px;
+  border-radius: 5px;
+  display: grid;
+  font-size: larger;
+  width: 350px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  background-color: rgba(245, 245, 245, 0.866);
+}
+
+.admin-table th {
+  background-color: rgb(219, 30, 93);
+  color: whitesmoke;
+}
+.admin-table td {
+  background-color: rgb(219, 30, 93);
+  color: whitesmoke;
+}
+
+.admin-table tr {
+  background-color: rgb(219, 30, 93);
+  color: whitesmoke;
+}
+
+.adminOL li{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+.adminUL li{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+.heading{
+  padding: 2px 20px 2px 30px;
+  display: flex;
+  gap: 35px;
+}
+

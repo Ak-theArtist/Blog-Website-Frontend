@@ -1,0 +1,41 @@
+a {
+    text-decoration: none;
+}
+
+* {
+    transition: all 0.2s ease;
+}
+
+.navbar-color {
+    background-color: rgba(230, 38, 102, 0.933);
+}
+
+.navbar-color2 {
+    background-color: rgba(95, 10, 38, 0.933);
+}
+body {
+    overflow-x: hidden;
+    color: rgba(95, 10, 38, 0.933)
+}
+
+h2 {
+    text-align: center;
+}
+
+a {
+    color: rgb(50, 50, 50);
+}
+
+tr {
+    display: flex;
+    gap: 10px;
+    border: 1px solid whitesmoke;
+}
+
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+        place-content: flex-end;
+    }
+}
