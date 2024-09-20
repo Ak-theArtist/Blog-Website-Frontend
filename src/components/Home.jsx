@@ -9,13 +9,13 @@ export default function Home() {
   const apiBaseUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    axios.get(`${apiBaseUrl}/getposts`)
+    axios.get('https://blog-website-backend-9nth.onrender.com/getposts')
       .then(response => {
         const sortedPosts = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setPosts(sortedPosts);
       })
       .catch(err => console.log(err));
-  }, [apiBaseUrl]);
+  }, []);  
 
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
