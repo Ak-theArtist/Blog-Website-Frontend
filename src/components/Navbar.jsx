@@ -14,6 +14,7 @@ function Navbar(props) {
             .then(res => {
                 if (res.data === "Success") {
                     console.log(res.data);
+                    localStorage.removeItem('token'); // Remove token from local storage
                     navigate('/');
                     window.location.reload();
                 }
@@ -51,7 +52,7 @@ function Navbar(props) {
                         )}
                     </ul>
                     <div className="d-flex">
-                        {user.name ? (
+                        {localStorage.getItem('token') ? (
                             <button className="btn btn-outline-light nav-logout-btn" type="button" onClick={handleLogout}>Logout</button>
                         ) : (
                             <>
