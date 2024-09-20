@@ -10,35 +10,32 @@ import Login from './components/Login';
 import Footer from './components/Footer';
 import Post from './components/Post';
 import MyPost from './components/MyPost';
-import './App.css';
 import Admin from './components/Admin';
+import './App.css';
 
 export const userContext = createContext();
 
 function App() {
   const [user, setUser] = useState({});
 
-  // Axios interceptor to include token in requests
-  axios.interceptors.request.use(config => {
+  useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-    return config;
-  });
+      axios.interceptors.request.use(config => {
+        config.headers['Authorization'] = `Bearer ${token}`;
+        return config;
+      });
 
-  axios.get('https://blog-website-backend.onrender.com/', {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then(response => {
-      const { email, name } = response.data;
-      setUser({ email, name });
-    })
-    .catch(error => {
-      console.error('Error fetching user data:', error);
-    });
+      axios.get('https://blog-website-backend.onrender.com/')
+        .then(response => {
+          const { email, name } = response.data;
+          setUser({ email, name });
+        })
+        .catch(error => {
+          console.error('Error fetching user data:', error);
+        });
+    }
+  }, []); 
 
   return (
     <userContext.Provider value={[user, setUser]}>

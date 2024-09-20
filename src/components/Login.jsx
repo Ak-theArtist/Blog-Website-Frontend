@@ -29,13 +29,18 @@ function Login() {
                 if (res.data.token) {
                     localStorage.setItem('token', res.data.token); 
                     
-                    const decoded = jwtDecode(res.data.token); 
-                    setUser({ name: decoded.name, email: decoded.email });
-                    
-                    if (decoded.role === 'admin') {
-                        navigate('/admin');
-                    } else {
-                        navigate('/');
+                    try {
+                        const decoded = jwtDecode(res.data.token);  
+                        setUser({ name: decoded.name, email: decoded.email });
+                        
+                        if (decoded.role === 'admin') {
+                            navigate('/admin');
+                        } else {
+                            navigate('/');
+                        }
+                    } catch (error) {
+                        console.error("Token decoding failed:", error);
+                        alert("Failed to log in. Please try again.");
                     }
                 } else {
                     alert("Invalid Credentials");
