@@ -8,12 +8,16 @@ const Admin = () => {
     useEffect(() => {
         axios.get('https://blog-website-backend-9nth.onrender.com/getAllusers')
             .then(response => {
-                console.log(response.data);
-                const filteredUsers = response.data.filter(user => user.role === 'user');
-                setUsers(filteredUsers);
+                console.log('Fetched users:', response.data); 
+                if (Array.isArray(response.data)) {
+                    const filteredUsers = response.data.filter(user => user?.role === 'user'); 
+                    setUsers(filteredUsers);
+                } else {
+                    console.error('Unexpected data format:', response.data);
+                }
             })
             .catch(err => {
-                console.error(err);
+                console.error('Error fetching users:', err);
                 alert("Failed to fetch users. Please check the console for more details.");
             });
     }, []);
@@ -31,31 +35,29 @@ const Admin = () => {
     };
 
     return (
-        <>
-            <div className='admin-box'>
-                <table className='admin-table'>
-                    <h2>Admin Panel</h2>
-                    <thead>
-                        <tr className='heading'>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Actions</th>
+        <div className='admin-box'>
+            <table className='admin-table'>
+                <h2>Admin Panel</h2>
+                <thead>
+                    <tr className='heading'>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Array.isArray(users) && users.map(user => (
+                        <tr key={user._id}>
+                            <td>{user.name}</td>
+                            <td>{user.email}</td>
+                            <td>
+                                <button onClick={() => handleDelete(user._id)} className="btn btn-danger">Delete</button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {Array.isArray(users) && users.map(user => (
-                            <tr key={user._id}>
-                                <td>{user.name}</td>
-                                <td>{user.email}</td>
-                                <td>
-                                    <button onClick={() => handleDelete(user._id)} className="btn btn-danger">Delete</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
 };
 
