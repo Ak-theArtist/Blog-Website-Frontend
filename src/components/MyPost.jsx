@@ -8,11 +8,12 @@ export default function MyPost() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
-  const user = useContext(userContext);
+  const [user] = useContext(userContext);
 
   useEffect(() => {
     axios.get('https://blog-website-backend-9nth.onrender.com/myposts')
       .then(posts => {
+        console.log(posts.data);
         setUserPosts(posts.data);
       })
       .catch(err => console.log(err));
@@ -51,6 +52,8 @@ export default function MyPost() {
     setDescription('');
     setFile(null);
   };
+
+  console.log('Posts:', user?.posts);
 
   return (
     <>
@@ -107,7 +110,7 @@ export default function MyPost() {
                 <Link to={`/post/${post._id}`} className='post-view'>
                   <h5>{post.title}</h5>
                   <p>{post.description}</p>
-                  <img src={`https://blog-website-backend-9nth.onrender.com/Images/${post.file}`} alt="" />
+                  {post.file && <img src={`https://blog-website-backend-9nth.onrender.com/Images/${post.file}`} alt="" />}
                 </Link>
                 <div className="post-actions">
                   <Link to="#" className='btn btn-success mx-1' data-bs-toggle="modal" data-bs-target={`#editModal-${post._id}`} onClick={() => {

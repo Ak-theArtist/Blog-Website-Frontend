@@ -7,17 +7,16 @@ import axios from 'axios';
 function Navbar(props) {
     const [user] = useContext(userContext);
     const navigate = useNavigate();
-    const adminEmail = "kumarakash91384@gmail.com"; 
+    const adminEmail = "kumarakash91384@gmail.com";
 
     useEffect(() => {
-        console.log('User data:', user); // Debugging
+        console.log('User data:', user); 
     }, [user]);
 
     const handleLogout = () => {
         axios.get('https://blog-website-backend-9nth.onrender.com/logout')
             .then(res => {
                 if (res.data === "Success") {
-                    console.log(res.data);
                     localStorage.removeItem('token'); 
                     navigate('/');
                     window.location.reload();

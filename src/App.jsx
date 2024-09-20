@@ -28,8 +28,10 @@ function App() {
 
       axios.get('https://blog-website-backend.onrender.com/')
         .then(response => {
+          console.log('User data from backend:', response.data); 
           const { email, name } = response.data;
           setUser({ email, name });
+          console.log('User state set:', { email, name });
         })
         .catch(error => {
           console.error('Error fetching user data:', error);
