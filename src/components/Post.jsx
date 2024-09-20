@@ -12,7 +12,16 @@ export default function Post() {
   const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
-  const user = useContext(userContext);
+
+  const [user] = useContext(userContext);
+
+  useEffect(() => {
+    console.log('User in Post component:', user);
+  }, [user]);
+  useEffect(() => {
+    console.log('Post data:', post);
+  }, [post]);
+  
 
   useEffect(() => {
     axios.get(`https://blog-website-backend-9nth.onrender.com/getpostbyid/${id}`)
@@ -21,6 +30,7 @@ export default function Post() {
         setTitle(result.data.title);
         setDescription(result.data.description);
         setFile(result.data.file);
+        console.log('Post data:', result.data);
       })
       .catch(err => console.log(err));
   }, [id]);
@@ -75,7 +85,12 @@ export default function Post() {
                 >
                   Edit
                 </button>
-                <button className='btn btn-danger' onClick={() => handleDelete(post._id)}>Delete</button>
+                {user.email && user.email === post.email ? (
+                  <>
+                    <button className='btn btn-success mx-1' data-bs-toggle="modal" data-bs-target="#editModal" onClick={resetForm}>Edit</button>
+                    <button className='btn btn-danger' onClick={() => handleDelete(post._id)}>Delete</button>
+                  </>
+                ) : null}
               </>
             ) : null}
           </div>
