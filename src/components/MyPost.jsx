@@ -129,7 +129,7 @@ export default function MyPost() {
                 <Link to={`/post/${post._id}`} className='post-view'>
                   <h5>{post.title}</h5>
                   <p>{post.description}</p>
-                  {post.file && <img src={`https://blog-website-backend-9nth.onrender.com/Images/${post.file}`} alt="" />}
+                  {post.file && <img src={`https://blog-website-backend-9nth.onrender.com/Images/${post.file}`} alt={post.title} />}
                 </Link>
                 <div className="post-actions">
                   <Link to="#" className='btn btn-success mx-1' data-bs-toggle="modal" data-bs-target={`#editModal-${post._id}`} onClick={() => {
