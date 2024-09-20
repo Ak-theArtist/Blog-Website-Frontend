@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/images/mu_logo.png';
 import { userContext } from '../App';
@@ -9,12 +9,16 @@ function Navbar(props) {
     const navigate = useNavigate();
     const adminEmail = "kumarakash91384@gmail.com"; 
 
+    useEffect(() => {
+        console.log('User data:', user); // Debugging
+    }, [user]);
+
     const handleLogout = () => {
         axios.get('https://blog-website-backend-9nth.onrender.com/logout')
             .then(res => {
                 if (res.data === "Success") {
                     console.log(res.data);
-                    localStorage.removeItem('token');
+                    localStorage.removeItem('token'); 
                     navigate('/');
                     window.location.reload();
                 }
@@ -23,7 +27,7 @@ function Navbar(props) {
     };
 
     // Check if the user is an admin
-    const isAdmin = user.email === adminEmail;
+    const isAdmin = user?.email === adminEmail;
 
     return (
         <nav className="navbar navbar-expand-lg mynavbar-color">
@@ -40,7 +44,7 @@ function Navbar(props) {
                         <li className="nav-item">
                             <Link to='/'><a className="nav-link active" aria-current="page">Home</a></Link>
                         </li>
-                        {user.name && !isAdmin && (
+                        {user?.email && !isAdmin && (
                             <li className="nav-item">
                                 <Link to='/mypost'><a className="nav-link active" aria-current="page">Your Posts</a></Link>
                             </li>
