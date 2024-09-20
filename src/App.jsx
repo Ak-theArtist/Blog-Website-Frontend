@@ -27,18 +27,24 @@ function App() {
     return config;
   });
 
-  // Fetch user data on component mount
   useEffect(() => {
-    axios.get('https://blog-website-backend-9nth.onrender.com/')
+    const token = localStorage.getItem('token');
+    if (token) {
+      axios.get('https://blog-website-backend-9nth.onrender.com/user', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       .then(response => {
         setUser(response.data);
         console.log(response.data);
       })
       .catch(err => console.log(err));
+    }
   }, []);
 
   return (
-    <userContext.Provider value={user}>
+    <userContext.Provider value={[user, setUser]}>
       <Router>
         <Navbar user={user} title='Mewar Gallery' />
         <Routes>

@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import { userContext } from '../App'; 
 
 function Login() {
     document.title = 'Mewar Gallery - Login';
@@ -9,6 +10,7 @@ function Login() {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false); 
     const navigate = useNavigate();
+    const [, setUser] = useContext(userContext); 
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -28,6 +30,8 @@ function Login() {
                     localStorage.setItem('token', res.data.token); 
                     
                     const decoded = jwtDecode(res.data.token); 
+                    setUser({ name: decoded.name, email: decoded.email });
+                    
                     if (decoded.role === 'admin') {
                         navigate('/admin');
                     } else {

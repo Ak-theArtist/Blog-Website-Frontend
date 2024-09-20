@@ -5,7 +5,7 @@ import { userContext } from '../App';
 import axios from 'axios';
 
 function Navbar(props) {
-    const user = useContext(userContext);
+    const [user] = useContext(userContext);
     const navigate = useNavigate();
     const adminEmail = "kumarakash91384@gmail.com"; 
 
@@ -14,7 +14,7 @@ function Navbar(props) {
             .then(res => {
                 if (res.data === "Success") {
                     console.log(res.data);
-                    localStorage.removeItem('token'); // Remove token from local storage
+                    localStorage.removeItem('token');
                     navigate('/');
                     window.location.reload();
                 }
