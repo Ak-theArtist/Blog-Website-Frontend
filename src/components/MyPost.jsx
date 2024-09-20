@@ -61,7 +61,7 @@ export default function MyPost() {
         }
       });
       if (response.data === 'Success') {
-        window.location.href = '/'; 
+        window.location.href = '/';
       }
     } catch (err) {
       console.log('Error creating post:', err.response ? err.response.data : err.message);
