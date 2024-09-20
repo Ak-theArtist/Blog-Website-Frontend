@@ -9,8 +9,6 @@ function Login() {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false); 
     const navigate = useNavigate();
-    
-    axios.defaults.withCredentials = true;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -22,36 +20,35 @@ function Login() {
 
         setLoading(true);
 
-        setTimeout(() => {
-            axios.post('https://blog-website-backend-9nth.onrender.com/login', { email, password })
-                .then(res => {
-                    setLoading(false);
+        axios.post('https://blog-website-backend-9nth.onrender.com/login', { email, password })
+            .then(res => {
+                setLoading(false);
+                
+                if (res.data.token) {
+                    localStorage.setItem('token', res.data.token); 
                     
-                    if (res.data) {
-                        const decoded = jwtDecode(res.data);
-                        if (decoded.role === 'admin') {
-                            navigate('/admin');
-                        } else {
-                            navigate('/');
-                        }
-                        navigate(0); // Reload the page
+                    const decoded = jwtDecode(res.data.token); 
+                    if (decoded.role === 'admin') {
+                        navigate('/admin');
                     } else {
-                        alert("Invalid Credentials");
+                        navigate('/');
                     }
-                })
-                .catch(err => {
-                    setLoading(false);
-                    console.error(err);
-                    alert("Error during login. Please try again.");
-                });
-        }, 2000);
+                } else {
+                    alert("Invalid Credentials");
+                }
+            })
+            .catch(err => {
+                setLoading(false);
+                console.error(err);
+                alert("Error during login. Please try again.");
+            });
     };
 
     const showPassword = () => {
         const passwordField = document.getElementById("inputPassword5");
         const checkbox = document.getElementById("check");
         passwordField.type = checkbox.checked ? "text" : "password";
-    }
+    };
 
     return (
         <div className='login-container d-flex justify-content-center align-items-center flex-column'>
@@ -103,7 +100,7 @@ function Login() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default Login;
