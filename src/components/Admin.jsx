@@ -7,15 +7,16 @@ const Admin = () => {
 
     useEffect(() => {
         axios.get('https://blog-website-backend-9nth.onrender.com/getAllusers')
-          .then(response => {
-            const filteredUsers = response.data.filter(user => user.role === 'user');
-            setUsers(filteredUsers);
-          })
-          .catch(err => {
-            console.error(err);
-            alert("Failed to fetch users. Please check the console for more details.");
-          });
-      }, []);      
+            .then(response => {
+                console.log(response.data);
+                const filteredUsers = response.data.filter(user => user.role === 'user');
+                setUsers(filteredUsers);
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Failed to fetch users. Please check the console for more details.");
+            });
+    }, []);
 
     const handleDelete = (userId) => {
         if (window.confirm('Are you sure you want to delete this user?')) {
@@ -42,7 +43,7 @@ const Admin = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map(user => (
+                        {Array.isArray(users) && users.map(user => (
                             <tr key={user._id}>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
