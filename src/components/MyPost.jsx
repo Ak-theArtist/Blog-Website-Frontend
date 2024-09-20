@@ -48,13 +48,19 @@ export default function MyPost() {
     formData.append('description', description);
     formData.append('file', file);
 
-    axios.post('https://blog-website-backend-9nth.onrender.com/create', formData)
+    axios.post('https://blog-website-backend-9nth.onrender.com/create', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then(res => {
         if (res.data === 'Success') {
           window.location.href = '/';
         }
       })
       .catch(err => console.log(err));
+
   };
 
   const resetForm = () => {
@@ -98,7 +104,10 @@ export default function MyPost() {
                       </div>
                       <div className="mb-3">
                         <label htmlFor="file-upload" className="col-form-label">File:</label>
-                        <input type="file" className="form-control" id="file-upload" onChange={(e) => setFile(e.target.files[0])} />
+                        <input type="file" className="form-control" id="file-upload" onChange={(e) => {
+                          setFile(e.target.files[0]);
+                          console.log(e.target.files[0]);
+                        }} />
                       </div>
                     </div>
                     <div className="modal-footer">
