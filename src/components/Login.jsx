@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
@@ -12,8 +12,6 @@ function Login() {
     
     axios.defaults.withCredentials = true;
 
-    const apiBaseUrl = process.env.REACT_APP_API_URL;
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -25,7 +23,7 @@ function Login() {
         setLoading(true);
 
         setTimeout(() => {
-            axios.post(`${apiBaseUrl}/login`, { email, password })
+            axios.post('https://blog-website-backend-9nth.onrender.com/login', { email, password })
                 .then(res => {
                     setLoading(false);
                     

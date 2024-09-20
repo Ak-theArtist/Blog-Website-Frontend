@@ -16,22 +16,18 @@ import Admin from './components/Admin';
 export const userContext = createContext();
 
 function App() {
-
   const [user, setUser] = useState({});
 
   axios.defaults.withCredentials = true;
 
-  const apiBaseUrl = process.env.REACT_APP_API_URL;
-  console.log(apiBaseUrl);
-
   useEffect(() => {
-    axios.get(`${apiBaseUrl}/`)
+    axios.get('https://blog-website-backend-9nth.onrender.com/')
       .then(response => {
         setUser(response.data);
         console.log(response.data);
       })
       .catch(err => console.log(err));
-  }, [apiBaseUrl]);  
+  }, []);  
 
   return (
     <userContext.Provider value={user}>

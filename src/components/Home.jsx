@@ -6,8 +6,6 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
   document.title = 'Mewar Gallery - Home';
 
-  const apiBaseUrl = process.env.REACT_APP_API_URL;
-
   useEffect(() => {
     axios.get('https://blog-website-backend-9nth.onrender.com/getposts')
       .then(response => {
@@ -29,7 +27,7 @@ export default function Home() {
       <div className='home-view'>
         {posts.map(post => (
           <Link key={post._id} to={`/post/${post._id}`} className='post-view'>
-            <img src={`${apiBaseUrl}/Images/${post.file}`} alt="" />
+            <img src={`https://blog-website-backend-9nth.onrender.com/Images/${post.file}`} alt="" />
             <div className="posttext-view">
               <h5>{truncateText(post.title, 14)}</h5>
               <p>{truncateText(post.description, 40)}</p>

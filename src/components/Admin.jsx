@@ -5,10 +5,8 @@ const Admin = () => {
     const [users, setUsers] = useState([]);
     const [email, setEmail] = useState([]);
 
-    const apiBaseUrl = process.env.REACT_APP_API_URL;
-
     useEffect(() => {
-        axios.get(`${apiBaseUrl}/getAllusers`)
+        axios.get('https://blog-website-backend-9nth.onrender.com/getAllusers')
             .then(response => {
                 const filteredUsers = response.data.filter(user => user.role === 'user');
                 const filteredEmail = response.data.filter(user => user.role === 'user');
@@ -16,11 +14,11 @@ const Admin = () => {
                 setEmail(filteredEmail);
             })
             .catch(err => console.error(err));
-    }, [apiBaseUrl]);  
+    }, []);  
 
     const handleDelete = (userId) => {
         if (window.confirm('Are you sure you want to delete this user?')) {
-            axios.delete(`${apiBaseUrl}/deleteUser/${userId}`)
+            axios.delete(`https://blog-website-backend-9nth.onrender.com/deleteUser/${userId}`)
                 .then(result => {
                     alert(result.data.message);
                     setUsers(prevUsers => prevUsers.filter(user => user._id !== userId));

@@ -5,8 +5,6 @@ import { userContext } from '../App';
 
 document.title = 'Mewar Gallery - Your Posts';
 
-const apiBaseUrl = process.env.REACT_APP_API_URL;
-
 export default function Post() {
   const { id } = useParams();
   const [post, setPost] = useState({});
@@ -17,7 +15,7 @@ export default function Post() {
   const user = useContext(userContext);
 
   useEffect(() => {
-    axios.get(`${apiBaseUrl}/getpostbyid/${id}`)
+    axios.get(`https://blog-website-backend-9nth.onrender.com/getpostbyid/${id}`)
       .then(result => {
         setPost(result.data);
         setTitle(result.data.title);
@@ -30,7 +28,7 @@ export default function Post() {
   const handleDelete = (_id) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this post?');
     if (confirmDelete) {
-      axios.delete(`${apiBaseUrl}/deletepost/${id}`)
+      axios.delete(`https://blog-website-backend-9nth.onrender.com/deletepost/${id}`)
         .then(result => {
           navigate('/');
         })
@@ -44,7 +42,7 @@ export default function Post() {
     formData.append('title', title);
     formData.append('description', description);
     formData.append('file', file);
-    axios.put(`${apiBaseUrl}/editpost/${id}`, formData)
+    axios.put(`https://blog-website-backend-9nth.onrender.com/editpost/${id}`, formData)
       .then(res => {
         if (res.data === 'Success') {
           window.location.href = '/';
@@ -62,7 +60,7 @@ export default function Post() {
   return (
     <div className='postview_container'>
       <div className='postview'>
-        <img src={`${apiBaseUrl}/Images/${post.file}`} alt="" />
+        <img src={`https://blog-website-backend-9nth.onrender.com/Images/${post.file}`} alt="" />
         <div className='poststext-view'>
           <h2>{post.title}</h2>
           <h5 className='text-center'>{post.description}</h5>

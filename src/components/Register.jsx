@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Register() {
@@ -8,8 +8,6 @@ function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-
-    const apiBaseUrl = process.env.REACT_APP_API_URL;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -31,7 +29,7 @@ function Register() {
             return;
         }
 
-        axios.post(`${apiBaseUrl}/register`, { name, email, password })
+        axios.post('https://blog-website-backend-9nth.onrender.com/register', { name, email, password })
             .then(() => {
                 setSuccessMessage('Registration successful! Redirecting to login...');
                 setTimeout(() => {
@@ -58,7 +56,7 @@ function Register() {
         }
     }
 
-    document.title = 'Mewar Gallery - Register'
+    document.title = 'Mewar Gallery - Register';
 
     return (
         <div className='register-container d-flex justify-content-center align-items-center flex-column'>
@@ -127,7 +125,7 @@ function Register() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default Register;

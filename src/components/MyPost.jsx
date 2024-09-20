@@ -10,10 +10,8 @@ export default function MyPost() {
   const [file, setFile] = useState(null);
   const user = useContext(userContext);
 
-  const apiBaseUrl = process.env.REACT_APP_API_URL;
-
   useEffect(() => {
-    axios.get(`${apiBaseUrl}/myposts`)
+    axios.get('https://blog-website-backend-9nth.onrender.com/myposts')
       .then(posts => {
         setUserPosts(posts.data);
       })
@@ -23,7 +21,7 @@ export default function MyPost() {
   const handleDelete = (postId) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this post?');
     if (confirmDelete) {
-      axios.delete(`${apiBaseUrl}/deletepost/${postId}`)
+      axios.delete(`https://blog-website-backend-9nth.onrender.com/deletepost/${postId}`)
         .then(result => {
           setUserPosts(prevPosts => prevPosts.filter(post => post._id !== postId));
         })
@@ -38,7 +36,8 @@ export default function MyPost() {
     formData.append('email', user.email);
     formData.append('description', description);
     formData.append('file', file);
-    axios.post(`${apiBaseUrl}/create`, formData)
+    
+    axios.post('https://blog-website-backend-9nth.onrender.com/create', formData)
       .then(res => {
         if (res.data === 'Success') {
           window.location.href = '/';
@@ -63,7 +62,6 @@ export default function MyPost() {
   return (
     <>
       <div className="mypost-container">
-
         <div className="myModal post_container my-3">
           <div className="post_form">
             <button
@@ -116,7 +114,7 @@ export default function MyPost() {
                 <Link to={`/post/${post._id}`} className='post-view'>
                   <h5>{truncateText(post.title, 17)}</h5>
                   <p>{truncateText(post.description, 20)}</p>
-                  <img src={`${apiBaseUrl}/Images/${post.file}`} alt="" />
+                  <img src={`https://blog-website-backend-9nth.onrender.com/Images/${post.file}`} alt="" />
                 </Link>
                 <div className="post-actions">
                   <Link to="#" className='btn btn-success mx-1' data-bs-toggle="modal" data-bs-target={`#editModal-${post._id}`} onClick={() => {
@@ -136,7 +134,7 @@ export default function MyPost() {
                         formData.append('title', title);
                         formData.append('description', description);
                         formData.append('file', file);
-                        axios.put(`${apiBaseUrl}/editpost/${post._id}`, formData)
+                        axios.put(`https://blog-website-backend-9nth.onrender.com/editpost/${post._id}`, formData)
                           .then(res => {
                             if (res.data === 'Success') {
                               window.location.href = '/';
@@ -170,7 +168,7 @@ export default function MyPost() {
                   </div>
                 </div>
               </div>
-            ))}
+            ))} 
           </div>
         ) : (
           <p>No posts found.</p>
