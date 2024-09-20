@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   document.title = 'Mewar Gallery - Home';
 
   useEffect(() => {
@@ -11,21 +13,21 @@ export default function Home() {
       .then(response => {
         const sortedPosts = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setPosts(sortedPosts);
+        setLoading(false);
       })
-      .catch(err => console.log(err));
-  }, []);  
-
-  const truncateText = (text, maxLength) => {
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength) + '...';
-    }
-    return text;
-  };
+      .catch(err => {
+        console.error(err);
+        setError('Failed to load posts.');
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <div className="home-main">
       <div className='home-view'>
-        {posts.map(post => (
+        {loading && <p>Loading posts...</p>}
+        {error && <p>{error}</p>}
+        {!loading && posts.map(post => (
           <Link key={post._id} to={`/post/${post._id}`} className='post-view'>
             <img src={`https://blog-website-backend-9nth.onrender.com/Images/${post.file}`} alt="" />
             <div className="posttext-view">

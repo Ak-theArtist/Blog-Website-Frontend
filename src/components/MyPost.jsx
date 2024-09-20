@@ -13,7 +13,8 @@ export default function MyPost() {
   useEffect(() => {
     axios.get('https://blog-website-backend-9nth.onrender.com/myposts')
       .then(posts => {
-        setUserPosts(posts.data);
+        console.log('API Response:', posts.data);
+        setUserPosts(Array.isArray(posts.data) ? posts.data : []);
       })
       .catch(err => console.log(err));
   }, []);
@@ -47,10 +48,7 @@ export default function MyPost() {
   };
 
   const truncateText = (text, maxLength) => {
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength) + '...';
-    }
-    return text;
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   };
 
   const resetForm = () => {
@@ -69,7 +67,6 @@ export default function MyPost() {
               className="btn btn create-post-btn"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
-              data-bs-whatever="@getbootstrap"
               onClick={resetForm}
             >
               Create a Post
@@ -107,7 +104,7 @@ export default function MyPost() {
         </div>
 
         <h2 className='mb-3'>Your Posts</h2>
-        {userPosts.length > 0 ? (
+        {Array.isArray(userPosts) && userPosts.length > 0 ? (
           <div className="myposts-list">
             {userPosts.map(post => (
               <div key={post._id} className="mypost-item">
