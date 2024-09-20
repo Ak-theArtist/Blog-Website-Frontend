@@ -10,14 +10,14 @@ function Navbar(props) {
     const adminEmail = "kumarakash91384@gmail.com";
 
     useEffect(() => {
-        console.log('User data:', user); 
+        console.log('User data:', user);
     }, [user]);
 
     const handleLogout = () => {
         axios.get('https://blog-website-backend-9nth.onrender.com/logout')
             .then(res => {
                 if (res.data === "Success") {
-                    localStorage.removeItem('token'); 
+                    localStorage.removeItem('token');
                     navigate('/');
                     window.location.reload();
                 }
@@ -27,6 +27,9 @@ function Navbar(props) {
 
     // Check if the user is an admin
     const isAdmin = user?.email === adminEmail;
+
+    // Check if token is present in localStorage
+    const isLoggedIn = !!localStorage.getItem('token');
 
     return (
         <nav className="navbar navbar-expand-lg mynavbar-color">
@@ -43,7 +46,7 @@ function Navbar(props) {
                         <li className="nav-item">
                             <Link to='/'><a className="nav-link active" aria-current="page">Home</a></Link>
                         </li>
-                        {user?.email && !isAdmin && (
+                        {isLoggedIn && !isAdmin && (
                             <li className="nav-item">
                                 <Link to='/mypost'><a className="nav-link active" aria-current="page">Your Posts</a></Link>
                             </li>
