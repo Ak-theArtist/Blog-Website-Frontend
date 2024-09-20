@@ -18,8 +18,16 @@ export const userContext = createContext();
 function App() {
   const [user, setUser] = useState({});
 
-  axios.defaults.withCredentials = true;
+  // Axios interceptor to include token in requests
+  axios.interceptors.request.use(config => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  });
 
+  // Fetch user data on component mount
   useEffect(() => {
     axios.get('https://blog-website-backend-9nth.onrender.com/')
       .then(response => {
@@ -27,7 +35,7 @@ function App() {
         console.log(response.data);
       })
       .catch(err => console.log(err));
-  }, []);  
+  }, []);
 
   return (
     <userContext.Provider value={user}>
