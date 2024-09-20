@@ -10,10 +10,16 @@ export default function MyPost() {
   const [file, setFile] = useState(null);
   const [user] = useContext(userContext);
 
+  const token = localStorage.getItem('token');
+
   useEffect(() => {
-    axios.get('https://blog-website-backend-9nth.onrender.com/myposts')
+    axios.get('https://blog-website-backend-9nth.onrender.com/myposts', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
       .then(posts => {
-        console.log(posts.data);
+        console.log("Posts:", posts.data);
         setUserPosts(posts.data);
       })
       .catch(err => console.log(err));
@@ -22,7 +28,11 @@ export default function MyPost() {
   const handleDelete = (postId) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this post?');
     if (confirmDelete) {
-      axios.delete(`https://blog-website-backend-9nth.onrender.com/deletepost/${postId}`)
+      axios.delete(`https://blog-website-backend-9nth.onrender.com/deletepost/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
         .then(result => {
           setUserPosts(prevPosts => prevPosts.filter(post => post._id !== postId));
         })
@@ -103,7 +113,7 @@ export default function MyPost() {
         </div>
 
         <h2 className='mb-3'>Your Posts</h2>
-        {userPosts.length > 0 ? (
+        {userPosts && Array.isArray(userPosts) ? (
           <div className="myposts-list">
             {userPosts.map(post => (
               <div key={post._id} className="mypost-item">
@@ -167,7 +177,7 @@ export default function MyPost() {
             ))}
           </div>
         ) : (
-          <p>No posts found.</p>
+          <p>No posts found or error loading posts.</p>
         )}
       </div>
     </>
