@@ -11,47 +11,58 @@ export default function MyPost() {
   const user = useContext(userContext);
 
   useEffect(() => {
-    axios.get('https://blog-website-backend-9nth.onrender.com/myposts')
-      .then(posts => {
-        console.log('API Response:', posts.data);
-        setUserPosts(Array.isArray(posts.data) ? posts.data : []);
-      })
-      .catch(err => console.log(err));
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get('https://blog-website-backend-9nth.onrender.com/myposts', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        console.log('API Response:', response.data);
+        setUserPosts(Array.isArray(response.data) ? response.data : []);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchPosts();
   }, []);
 
-  const handleDelete = (postId) => {
+  const handleDelete = async (postId) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this post?');
     if (confirmDelete) {
-      axios.delete(`https://blog-website-backend-9nth.onrender.com/deletepost/${postId}`)
-        .then(result => {
-          setUserPosts(prevPosts => prevPosts.filter(post => post._id !== postId));
-        })
-        .catch(err => console.log(err));
+      try {
+        await axios.delete(`https://blog-website-backend-9nth.onrender.com/deletepost/${postId}`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        setUserPosts(prevPosts => prevPosts.filter(post => post._id !== postId));
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('title', title);
-    formData.append('email', user.email);
     formData.append('description', description);
     formData.append('file', file);
 
-
-    if (!title || !description || !file) {
-      alert('Please fill in all fields and select a file.');
-      return;
-    }
-
-    axios.post('https://blog-website-backend-9nth.onrender.com/create', formData)
-      .then(res => {
-        console.log('Response:', res.data);
-        if (res.data === 'Success') {
-          window.location.href = '/';
+    try {
+      const response = await axios.post('https://blog-website-backend-9nth.onrender.com/create', formData, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
-      })
-      .catch(err => console.log('Error:', err.response ? err.response.data : err.message));
+      });
+      if (response.data === 'Success') {
+        window.location.href = '/'; 
+      }
+    } catch (err) {
+      console.log('Error:', err.response ? err.response.data : err.message);
+    }
   };
 
   const truncateText = (text, maxLength) => {
@@ -88,11 +99,11 @@ export default function MyPost() {
                     <div className="modal-body">
                       <div className="mb-3">
                         <label htmlFor="recipient-name" className="col-form-label">Title:</label>
-                        <input type="text" className="form-control" id="recipient-name" value={title} onChange={(e) => setTitle(e.target.value)} />
+                        <input type="text" className="form-control" id="recipient-name" value={title} onChange={(e) => setTitle(e.target.value)} required />
                       </div>
                       <div className="mb-3">
                         <label htmlFor="message-text" className="col-form-label">Description:</label>
-                        <textarea className="form-control" id="message-text" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+                        <textarea className="form-control" id="message-text" value={description} onChange={(e) => setDescription(e.target.value)} required></textarea>
                       </div>
                       <div className="mb-3">
                         <label htmlFor="file-upload" className="col-form-label">File:</label>
@@ -137,8 +148,14 @@ export default function MyPost() {
                         const formData = new FormData();
                         formData.append('title', title);
                         formData.append('description', description);
-                        formData.append('file', file);
-                        axios.put(`https://blog-website-backend-9nth.onrender.com/editpost/${post._id}`, formData)
+                        if (file) {
+                          formData.append('file', file);
+                        }
+                        axios.put(`https://blog-website-backend-9nth.onrender.com/editpost/${post._id}`, formData, {
+                          headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                          }
+                        })
                           .then(res => {
                             if (res.data === 'Success') {
                               window.location.href = '/';
