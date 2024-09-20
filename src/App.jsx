@@ -27,21 +27,18 @@ function App() {
     return config;
   });
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      axios.get('https://blog-website-backend-9nth.onrender.com/user', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      .then(response => {
-        setUser(response.data);
-        console.log(response.data);
-      })
-      .catch(err => console.log(err));
-    }
-  }, []);
+  axios.get('https://blog-website-backend.onrender.com/', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(response => {
+      const { email, name } = response.data;
+      setUser({ email, name });
+    })
+    .catch(error => {
+      console.error('Error fetching user data:', error);
+    });
 
   return (
     <userContext.Provider value={[user, setUser]}>
