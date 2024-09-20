@@ -30,7 +30,7 @@ function App() {
         console.log(response.data);
       })
       .catch(err => console.log(err));
-  }, [apiBaseUrl]);
+  }, [apiBaseUrl]);  
 
   return (
     <userContext.Provider value={user}>
