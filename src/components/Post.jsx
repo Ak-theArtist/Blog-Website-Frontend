@@ -16,21 +16,12 @@
 //   const [user] = useContext(userContext);
 
 //   useEffect(() => {
-//     console.log('User in Post component:', user);
-//   }, [user]);
-//   useEffect(() => {
-//     console.log('Post data:', post);
-//   }, [post]);
-  
-
-//   useEffect(() => {
 //     axios.get(`https://blog-website-backend-9nth.onrender.com/getpostbyid/${id}`)
 //       .then(result => {
 //         setPost(result.data);
 //         setTitle(result.data.title);
 //         setDescription(result.data.description);
 //         setFile(result.data.file);
-//         console.log('Post data:', result.data);
 //       })
 //       .catch(err => console.log(err));
 //   }, [id]);
@@ -38,7 +29,7 @@
 //   const handleDelete = (_id) => {
 //     const confirmDelete = window.confirm('Are you sure you want to delete this post?');
 //     if (confirmDelete) {
-//       axios.delete(`https://blog-website-backend-9nth.onrender.com/deletepost/${id}`)
+//       axios.delete(`https://blog-website-backend-9nth.onrender.com/deletepost/${_id}`)
 //         .then(result => {
 //           navigate('/');
 //         })
@@ -75,7 +66,7 @@
 //           <h2>{post.title}</h2>
 //           <h5 className='text-center'>{post.description}</h5>
 //           <div className='post-view-btns d-flex justify-content-center'>
-//             {user.email === post.email ? (
+//             {user.email === post.email && (
 //               <>
 //                 <button
 //                   className='btn btn-success mx-1'
@@ -85,14 +76,9 @@
 //                 >
 //                   Edit
 //                 </button>
-//                 {user.email && user.email === post.email ? (
-//                   <>
-//                     <button className='btn btn-success mx-1' data-bs-toggle="modal" data-bs-target="#editModal" onClick={resetForm}>Edit</button>
-//                     <button className='btn btn-danger' onClick={() => handleDelete(post._id)}>Delete</button>
-//                   </>
-//                 ) : null}
+//                 <button className='btn btn-danger' onClick={() => handleDelete(post._id)}>Delete</button>
 //               </>
-//             ) : null}
+//             )}
 //           </div>
 //         </div>
 //       </div>
@@ -148,9 +134,9 @@
 // }
 
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { userContext } from '../App';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
 document.title = 'Mewar Gallery - Your Posts';
 
@@ -162,7 +148,17 @@ export default function Post() {
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
 
-  const [user] = useContext(userContext);
+  // Get user's email from the token
+  const getUserEmailFromToken = () => {
+    const token = localStorage.getItem('token'); // Adjust if your token is stored under a different key
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      return decodedToken.email; // Adjust based on your token structure
+    }
+    return null;
+  };
+
+  const userEmail = getUserEmailFromToken();
 
   useEffect(() => {
     axios.get(`https://blog-website-backend-9nth.onrender.com/getpostbyid/${id}`)
@@ -215,7 +211,7 @@ export default function Post() {
           <h2>{post.title}</h2>
           <h5 className='text-center'>{post.description}</h5>
           <div className='post-view-btns d-flex justify-content-center'>
-            {user.email === post.email && (
+            {userEmail === post.email && (
               <>
                 <button
                   className='btn btn-success mx-1'
