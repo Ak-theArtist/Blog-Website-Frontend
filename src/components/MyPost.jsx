@@ -37,14 +37,21 @@ export default function MyPost() {
     formData.append('email', user.email);
     formData.append('description', description);
     formData.append('file', file);
-    
+
+
+    if (!title || !description || !file) {
+      alert('Please fill in all fields and select a file.');
+      return;
+    }
+
     axios.post('https://blog-website-backend-9nth.onrender.com/create', formData)
       .then(res => {
+        console.log('Response:', res.data);
         if (res.data === 'Success') {
           window.location.href = '/';
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log('Error:', err.response ? err.response.data : err.message));
   };
 
   const truncateText = (text, maxLength) => {
@@ -165,7 +172,7 @@ export default function MyPost() {
                   </div>
                 </div>
               </div>
-            ))} 
+            ))}
           </div>
         ) : (
           <p>No posts found.</p>
