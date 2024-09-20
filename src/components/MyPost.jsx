@@ -46,13 +46,6 @@ export default function MyPost() {
       .catch(err => console.log(err));
   };
 
-  const truncateText = (text, maxLength) => {
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength) + '...';
-    }
-    return text;
-  };
-
   const resetForm = () => {
     setTitle('');
     setDescription('');
@@ -112,8 +105,8 @@ export default function MyPost() {
             {userPosts.map(post => (
               <div key={post._id} className="mypost-item">
                 <Link to={`/post/${post._id}`} className='post-view'>
-                  <h5>{truncateText(post.title, 17)}</h5>
-                  <p>{truncateText(post.description, 20)}</p>
+                  <h5>{post.title}</h5>
+                  <p>{post.description}</p>
                   <img src={`https://blog-website-backend-9nth.onrender.com/Images/${post.file}`} alt="" />
                 </Link>
                 <div className="post-actions">

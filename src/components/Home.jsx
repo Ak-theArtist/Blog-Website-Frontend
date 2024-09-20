@@ -1,36 +1,3 @@
-// import { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import { Link } from 'react-router-dom';
-
-// export default function Home() {
-//   const [posts, setPosts] = useState([]);
-//   document.title = 'Mewar Gallery - Home';
-
-//   useEffect(() => {
-//     axios.get('https://blog-website-backend-9nth.onrender.com/getposts')
-//       .then(response => {
-//         const sortedPosts = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-//         setPosts(sortedPosts);
-//       })
-//       .catch(err => console.log(err));
-//   }, []);
-
-//   return (
-//     <div className="home-main">
-//       <div className='home-view'>
-//         {posts.map(post => (
-//           <Link key={post._id} to={`/post/${post._id}`} className='post-view'>
-//             <img src={`https://blog-website-backend-9nth.onrender.com/Images/${post.file}`} alt="" />
-//             <div className="posttext-view">
-//               <h5>{post.title}</h5>
-//               <p>{post.description}</p>
-//             </div>
-//           </Link>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -42,7 +9,6 @@ export default function Home() {
   useEffect(() => {
     axios.get('https://blog-website-backend-9nth.onrender.com/getposts')
       .then(response => {
-        // Ensure response.data is an array
         if (Array.isArray(response.data)) {
           const sortedPosts = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
           setPosts(sortedPosts);
